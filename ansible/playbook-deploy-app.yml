@@ -1,0 +1,62 @@
+---
+- name: Deploy Application from ECR
+  hosts: web
+  become: yes
+  
+  vars:
+    ecr_registry: "582821021565.dkr.ecr.ap-southeast-1.amazonaws.com"
+    ecr_repository: "devops-bootcamp/final-project-safwan"
+    image_tag: "latest"
+    container_name: "my-devops-project"
+    user_name: "Mohamad Safwan"
+
+  tasks:
+    - name: Configure AWS CLI for ubuntu user
+      shell: |
+        export AWS_DEFAULT_REGION=ap-southeast-1
+        aws configure set region ap-southeast-1
+      become_user: ubuntu
+
+    - name: Login to ECR and pull image
+      shell: |
+        aws ecr get-login-password --region ap-southeast-1 | docker login --username AWS --password-stdin {{ ecr_registry }}
+        docker pull {{ ecr_registry }}/{{ ecr_repository }}:{{ image_tag }}
+      become_user: ubuntu
+      register: pull_result
+
+    - name: Display pull result
+      debug:
+        var: pull_result.stdout_lines
+
+    - name: Stop existing container if running
+      shell: docker stop {{ container_name }} || true
+      become_user: ubuntu
+
+    - name: Remove existing container if exists
+      shell: docker rm {{ container_name }} || true
+      become_user: ubuntu
+
+    - name: Run application container
+      shell: |
+        docker run -d \
+          --name {{ container_name }} \
+          --restart unless-stopped \
+          -p 80:80 \
+          -e USER_NAME="{{ user_name }}" \
+          {{ ecr_registry }}/{{ ecr_repository }}:{{ image_tag }}
+      become_user: ubuntu
+
+    - name: Wait for container to be healthy
+      wait_for:
+        port: 80
+        delay: 5
+        timeout: 60
+
+    - name: Verify container is running
+      shell: docker ps | grep {{ container_name }}
+      become_user: ubuntu
+      register: container_status
+
+    - name: Display container status
+      debug:
+        var: container_status.stdout_lines
