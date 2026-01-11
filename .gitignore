@@ -34,3 +34,10 @@ terraform-outputs.txt
 app-source/
 grafana-credentials.txt
 terraform-outputs.txt
+
+# Sensitive credentials
+grafana-credentials.txt
+terraform-outputs.txt
+*.pem
+*.key
+.env
