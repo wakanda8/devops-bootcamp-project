@@ -1,17 +1,23 @@
 # DevOps Bootcamp Final Project 2025
 # Trust Me, I'm a DevOps Engineer
 
-# Project URLs
+## 🚀 Project URLs
 
 - **Web Application**: http://web.mosaf.dev
 - **Monitoring Dashboard**: https://monitoring.mosaf.dev
 - **GitHub Repository**: https://github.com/wakanda8/devops-bootcamp-project
 
-# Project Overview
+---
 
-# 1. Infrastructure Architecture
+## 📋 Project Overview
 
-# Network Architecture
+This project demonstrates a complete DevOps infrastructure deployment on AWS using industry-standard tools and best practices.
+
+---
+
+## 🏗️ 1. Infrastructure Architecture
+
+### Network Architecture
 - **VPC**: 10.0.0.0/24 (ap-southeast-1)
 - **Public Subnet**: 10.0.0.0/25
   - Web Server (10.0.0.5)
@@ -19,7 +25,7 @@
   - Ansible Controller (10.0.0.135)
   - Monitoring Server (10.0.0.136)
 
-# Components
+### Components
 1. **Web Server** (Public)
    - Ubuntu 24.04
    - Docker + Application Container
@@ -36,7 +42,7 @@
 
 ---
 
-# 2. Technologies Stack
+## 🛠️ 2. Technologies Stack
 
 | Category | Technology |
 |----------|-----------|
@@ -50,9 +56,11 @@
 | **Cloud Provider** | AWS (Singapore - ap-southeast-1) |
 | **Version Control** | Git + GitHub |
 
-# 3. Monitoring & Observability
+---
 
-# Metrics Collected
+## 📊 3. Monitoring & Observability
+
+### Metrics Collected
 - ✅ CPU Usage
 - ✅ Memory Usage
 - ✅ Disk Usage
@@ -60,12 +68,10 @@
 - ✅ System Load
 - ✅ Uptime
 
-# Grafana Dashboard
+### Grafana Dashboard
 Access: **https://monitoring.mosaf.dev**
 
-**Login Credentials:**
-- Username: `admin`
-- Password: `admin123`
+**Note:** Login credentials provided separately
 
 **Dashboard Features:**
 - Real-time metrics (15s refresh)
@@ -73,7 +79,9 @@ Access: **https://monitoring.mosaf.dev**
 - Network traffic graphs
 - System health indicators
 
-# 4. Repository Structure
+---
+
+## 📁 4. Repository Structure
 ```
 devops-bootcamp-project/
 ├── terraform/                    # Infrastructure as Code
@@ -100,9 +108,11 @@ devops-bootcamp-project/
 └── .gitignore                   # Git ignore rules
 ```
 
-# 5. Deployment Process
+---
 
-# Phase 1: Infrastructure Provisioning (Terraform)
+## 🚀 5. Deployment Process
+
+### Phase 1: Infrastructure Provisioning (Terraform)
 ```bash
 cd terraform
 terraform init
@@ -118,7 +128,7 @@ terraform apply
 - ECR repository
 - IAM roles for SSM
 
-# Phase 2: Application Deployment (Docker + Ansible)
+### Phase 2: Application Deployment (Docker + Ansible)
 ```bash
 cd ansible
 ansible-playbook playbook-install-docker.yml
@@ -132,7 +142,7 @@ ansible-playbook playbook-install-node-exporter.yml
 3. Deploy container on Web Server
 4. Install Node Exporter for monitoring
 
-# Phase 3: Monitoring Setup
+### Phase 3: Monitoring Setup
 ```bash
 # Deployed on Monitoring Server via SSM
 docker compose up -d  # Prometheus + Grafana
@@ -143,7 +153,7 @@ docker compose up -d  # Prometheus + Grafana
 - Grafana: Visualizes metrics with dashboards
 - Node Exporter: Exports system metrics
 
-# Phase 4: DNS Configuration (Cloudflare)
+### Phase 4: DNS Configuration (Cloudflare)
 ```bash
 # DNS Records
 web.mosaf.dev → 18.138.186.141 (A Record)
@@ -155,8 +165,9 @@ monitoring.mosaf.dev → Cloudflare Tunnel (CNAME)
 - Provides HTTPS encryption
 - No public IP needed for monitoring server
 
+---
 
-# 6. Security Considerations
+## 🔐 6. Security Considerations
 
 1. **Network Segmentation**
    - Private subnet for sensitive services
@@ -175,3 +186,24 @@ monitoring.mosaf.dev → Cloudflare Tunnel (CNAME)
 4. **IAM Roles**
    - SSM access via IAM roles (no SSH keys on internet)
    - ECR read-only access for EC2
+
+---
+
+## 👨‍💻 Author
+
+**Mohamad Safwan**  
+DevOps Bootcamp 2025  
+Infratify
+
+---
+
+## 📝 Notes
+
+- All infrastructure in AWS region: **ap-southeast-1** (Singapore)
+- Application runs on **Ubuntu 24.04 LTS**
+- Monitoring data retained for 15 days (Prometheus default)
+
+---
+
+**Project Status**: ✅ **COMPLETED**  
+**Submission Date**: January 2026
