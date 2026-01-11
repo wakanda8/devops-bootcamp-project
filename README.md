@@ -3,7 +3,7 @@
 
 ## 🚀 Project URLs
 
-- **Web Application**: http://web.mosaf.dev
+- **Web Application**: https://web.mosaf.dev
 - **Monitoring Dashboard**: https://monitoring.mosaf.dev
 - **GitHub Repository**: https://github.com/wakanda8/devops-bootcamp-project
 
